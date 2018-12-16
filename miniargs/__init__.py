@@ -1,1 +1,1 @@
-from .miniargs import ArgumentParser
+from miniargs.miniargs import ArgumentParser
