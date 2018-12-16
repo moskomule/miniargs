@@ -1,14 +1,14 @@
-# simpleargs
+# miniargs
 
 A wrapper of `argparse` which **I** can remember the APIs.
 
 ## usage
 
 ```python
-import simpleargs
-p = simpleargs.ArgumentParser()
+import miniargs
+p = miniargs.ArgumentParser()
 p.add_int("--batch_size", default=128)
-p.add_choice("--optimizer", ["sgd", "adam"])
+p.add_str("--optimizer", choices=["sgd", "adam"])
 p.add_float("--lr", default=0.1)
 p.add_true("--use_mixup")
 p.add_multi_int("--step", default=[100, 150])
