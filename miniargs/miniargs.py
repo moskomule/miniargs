@@ -80,5 +80,7 @@ class ArgumentParser(object):
         known = Arguments(**vars(known))
         if return_unknown:
             return known, unknown
-        else:
-            return known
+        elif len(unknown) > 0:
+            raise RuntimeError("Unknown arguments detected: use `parse(return_unknown=True)`!")
+
+        return known
