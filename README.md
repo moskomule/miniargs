@@ -2,7 +2,9 @@
 
 A wrapper of `argparse` which **I** can remember the APIs.
 
-## usage
+## Usage
+
+### Basic
 
 ```python
 import miniargs
@@ -15,6 +17,8 @@ p.add_multi_int("--step", default=[100, 150])
 args = p.parse()
 ```
 
+Parsed arguments are stored as an `Arguments` object.
+
 ```python
 >>> print(args)
 Arguments(batch_size=128, optimizer="sgd",...)
@@ -22,4 +26,16 @@ Arguments(batch_size=128, optimizer="sgd",...)
 128
 >>> args["batch_size"]
 128
+```
+
+### Adavanced
+
+```python
+p.add_only_one_true("--distributed", "--multiprocess_distributed", must=True)
+# Users chose only one of the arguments
+...
+if args.distributed:
+    ...
+if args.multiprocess_distributed:
+    ...
 ```

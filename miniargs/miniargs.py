@@ -75,8 +75,13 @@ class ArgumentParser(object):
     def add_multi_str(self, *options,  default=None, choices=None, help=None):
         self._add_args(*options, type=str, default=default, choices=choices, nargs="+", help=help)
 
-    def parse(self, return_unknown=False):
-        known, unknown = self._argparser.parse_known_args()
+    def add_only_one_true(self, *options, must=True):
+        group = self._argparser.add_mutually_exclusive_group()
+        for opt in options:
+            group.add_argument(opt, action="store_true")
+
+    def parse(self, args=None, return_unknown=False):
+        known, unknown = self._argparser.parse_known_args(args)
         known = Arguments(**vars(known))
         if return_unknown:
             return known, unknown
@@ -84,3 +89,7 @@ class ArgumentParser(object):
             raise RuntimeError(f"Unknown arguments detected: {unknown}")
 
         return known
+
+    def parse_args(self, args=None):
+        # alias of self.parse
+        return self.parse(args)
